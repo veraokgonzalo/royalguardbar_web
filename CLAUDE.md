@@ -33,15 +33,15 @@ Regla crítica: **el amarillo (`--mustard`) es solo para acción** — nunca par
 
 ### Tipografía
 
-Tres variables CSS que mapean sustitutos de Google Fonts → fuentes reales de producción:
+Fuentes oficiales en `assets/fonts/oficial/`, cargadas con `@font-face` al inicio de `index.html`:
 
-| Variable | Google Font (mockup) | Fuente real (producción) | Uso |
-|---|---|---|---|
-| `--font-display` | Big Shoulders Display 800 | Lulo Clean W1 One Bold | H1, H2, precios destacados |
-| `--font-impact` | Staatliches | Brothers Bold | Eyebrows, botones, nav links, UI labels |
-| `--font-body` | Barlow 500 | Neusa Demibold | Cuerpo de texto, descripciones |
+| Variable | Fuente | Uso |
+|---|---|---|
+| `--font-display` | Lulo Clean W01 One Bold | H1, H2, precios destacados, botones |
+| `--font-impact` | Lulo Clean W01 One (regular) | Eyebrows, nav links, UI labels |
+| `--font-body` | Neusa DemiBold | Cuerpo de texto, descripciones |
 
-Para pasar a producción: cargar las fuentes reales y actualizar los valores de las tres variables en `:root`.
+Lulo es muy ancha: usar `letter-spacing` bajo (≤ 0.08em) en textos largos como el menú.
 
 ### Breakpoints
 

@@ -4,23 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Royal Guard Bar — Propuesta de rediseño</title>
+<link rel="preload" as="image" href="assets/images/hero.jpg">
 <style>
+/* Fuentes oficiales (assets/fonts/oficial) */
 @font-face {
-  font-family: "Lulo Clean W01 One";
-  src: url("assets/fonts/lulo/Lulo%20Clean%20W01%20One%20Bold/Lulo%20Clean%20W01%20One%20Bold.otf") format("opentype");
-  font-weight: 700;
+  font-family: "Lulo Clean Bold";
+  src: url("assets/fonts/oficial/Lulo%20Clean%20W01%20One%20Bold.otf") format("opentype");
   font-display: swap;
 }
 @font-face {
-  font-family: "Brothers Bold";
-  src: url("assets/fonts/brothers/Brothers%20Bold/Brothers%20Bold.otf") format("opentype");
-  font-weight: 700;
+  font-family: "Lulo Clean";
+  src: url("assets/fonts/oficial/Lulo%20Clean%20W01%20One.ttf") format("truetype");
   font-display: swap;
 }
 @font-face {
   font-family: "Neusa";
-  src: url("assets/fonts/neusa/neusa-demibold.otf") format("opentype");
-  font-weight: 600;
+  src: url("assets/fonts/oficial/Neusa%20DemiBold.otf") format("opentype");
   font-display: swap;
 }
 </style>
@@ -39,10 +38,13 @@
   --muted:rgba(255,255,255,0.75);
   --border:rgba(255,255,255,0.15);
 
-  --font-display:"Lulo Clean W01 One",system-ui,sans-serif;
-  --font-impact:"Brothers Bold",Impact,sans-serif;
+  --font-display:"Lulo Clean Bold",system-ui,sans-serif;
+  --font-impact:"Lulo Clean",system-ui,sans-serif;
   --font-body:"Neusa",system-ui,-apple-system,sans-serif;
 }
+
+/* Cada familia tiene un solo peso: evita negritas/cursivas falsas del navegador */
+html{font-synthesis:none}
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -93,7 +95,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   padding:18px 32px;
   display:flex;align-items:center;justify-content:space-between;gap:24px;
 }
-.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .nav-logo svg{width:38px;height:44px}
 .nav-logo .wordmark{
   font-family:var(--font-display);
@@ -105,10 +107,10 @@ button{font-family:inherit;cursor:pointer;border:none}
 .nav-logo .wordmark small{
   display:block;font-size:9px;color:var(--mustard);margin-top:4px;letter-spacing:0.2em;
 }
-.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links{display:flex;align-items:center;gap:18px}
 .nav-links a{
   font-family:var(--font-impact);
-  font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+  font-size:11px;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;
   padding:8px 4px;color:var(--white);
   border-bottom:2px solid transparent;
   transition:border-color .2s, color .2s;
@@ -118,8 +120,8 @@ button{font-family:inherit;cursor:pointer;border:none}
 .nav-cta{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--mustard);color:var(--ink);
-  padding:10px 18px;border-radius:2px;
-  font-family:var(--font-impact);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+  padding:10px 18px;border-radius:2px;flex-shrink:0;
+  font-family:var(--font-display);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
   transition:background .2s;
 }
 .nav-cta:hover{background:var(--mustard-hover)}
@@ -138,7 +140,7 @@ button{font-family:inherit;cursor:pointer;border:none}
 .hero-bg{
   position:absolute;inset:0;
   background:
-    url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80') center/cover;
+    url('assets/images/hero.jpg') left 25%/150% auto no-repeat;
   filter:saturate(1.05);
 }
 .hero-overlay{
@@ -193,8 +195,8 @@ button{font-family:inherit;cursor:pointer;border:none}
 .btn{
   display:inline-flex;align-items:center;gap:10px;
   padding:16px 32px;
-  font-family:var(--font-impact);
-  font-size:14px;letter-spacing:0.18em;text-transform:uppercase;
+  font-family:var(--font-display);
+  font-size:13px;letter-spacing:0.08em;text-transform:uppercase;
   border-radius:2px;
   transition:transform .15s, background .2s, border-color .2s, color .2s;
   border:2px solid transparent;
@@ -452,16 +454,8 @@ button{font-family:inherit;cursor:pointer;border:none}
   display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;
 }
 .footer-brand{display:flex;flex-direction:column;gap:18px}
-.footer-brand .lockup-row{display:flex;align-items:center;gap:14px}
-.footer-brand .lockup-row svg{width:46px;height:54px}
-.footer-brand .lockup-row .name{
-  font-family:var(--font-display);font-weight:800;
-  letter-spacing:0.16em;font-size:18px;line-height:1.1;
-}
-.footer-brand .lockup-row .name small{
-  display:block;font-family:var(--font-impact);
-  font-size:10px;letter-spacing:0.28em;color:var(--mustard);margin-top:5px;
-}
+.footer-brand .lockup-row{display:flex;align-items:center}
+.footer-brand .lockup-row img{height:54px;width:auto;max-width:100%}
 .footer-brand .tagline{color:var(--muted);font-size:14px;max-width:280px}
 .footer h5{
   font-family:var(--font-impact);font-size:12px;letter-spacing:0.22em;
@@ -488,6 +482,7 @@ button{font-family:inherit;cursor:pointer;border:none}
 @media (max-width:960px){
   .nav-links,.nav-social{display:none}
   .nav-burger{display:inline-flex}
+  .hero-bg{background-position:center 45%;background-size:cover}
   .info-grid{grid-template-columns:repeat(2,1fr)}
   .carta-grid{grid-template-columns:repeat(2,1fr)}
   .split-grid{grid-template-columns:1fr;gap:56px}
@@ -770,11 +765,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="lockup-row">
-        <svg viewBox="0 0 46 54" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M23 2 L43 9 V28 C43 39 34 49 23 51 C12 49 3 39 3 28 V9 Z" fill="#F6A605"/>
-          <path d="M14 18 c2.5 -2.5 5 -2.5 9 0 c4 -2.5 6.5 -2.5 9 0 c0 9 -4 16 -9 19 c-5 -3 -9 -10 -9 -19 z" fill="#114495"/>
-        </svg>
-        <div class="name">ROYAL GUARD<small>BAR · BARRIO ITALIA</small></div>
+        <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar — Barrio Italia" loading="lazy">
       </div>
       <p class="tagline">Tu merecido relajo. Cervezas Royal Guard, cocina de barrio y la mejor terraza de Av. Italia.</p>
       <div class="footer-social" aria-label="Redes sociales">
