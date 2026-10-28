@@ -97,6 +97,7 @@ button{font-family:inherit;cursor:pointer;border:none}
 }
 .nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .nav-logo svg{width:38px;height:44px}
+.nav-logo img{height:44px;width:auto;max-width:none}
 .nav-logo .wordmark{
   font-family:var(--font-display);
   font-weight:800;
@@ -128,7 +129,15 @@ button{font-family:inherit;cursor:pointer;border:none}
 .nav-social{display:flex;gap:14px;align-items:center}
 .nav-social a{opacity:.85;transition:opacity .2s}
 .nav-social a:hover{opacity:1;color:var(--mustard)}
-.nav-burger{display:none;background:none;color:var(--white);font-size:24px;padding:6px}
+.nav-burger{
+  display:none;align-items:center;justify-content:center;flex-shrink:0;align-self:center;
+  width:40px;height:40px;padding:0;
+  background:none;color:var(--white);
+}
+.nav-burger svg{width:24px;height:24px;display:block}
+.nav-burger .icon-close{display:none}
+.nav.is-open .nav-burger .icon-open{display:none}
+.nav.is-open .nav-burger .icon-close{display:block}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -153,7 +162,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   position:relative;z-index:2;
   text-align:center;
   padding:80px 32px;
-  max-width:920px;
+  max-width:1000px;
 }
 .hero-shield{
   display:inline-flex;align-items:center;gap:18px;
@@ -172,8 +181,9 @@ button{font-family:inherit;cursor:pointer;border:none}
 .hero h1{
   font-family:var(--font-display);
   font-weight:800;
-  font-size:clamp(36px,5.5vw,72px);
+  font-size:clamp(18px,5.4vw,64px);
   letter-spacing:0.04em;
+  white-space:nowrap;
   text-transform:uppercase;
   line-height:1.02;
   margin-bottom:22px;
@@ -209,15 +219,6 @@ button{font-family:inherit;cursor:pointer;border:none}
 .btn-tertiary{background:var(--terracotta);color:var(--white)}
 .btn-tertiary:hover{background:var(--terracotta-hover)}
 
-.scroll-hint{
-  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
-  font-family:var(--font-impact);font-size:11px;letter-spacing:0.3em;
-  color:var(--muted);z-index:2;
-}
-.scroll-hint::after{
-  content:"";display:block;width:1px;height:24px;background:var(--muted);
-  margin:8px auto 0;
-}
 
 /* ---------- INFO STRIP ---------- */
 .info-strip{
@@ -482,6 +483,18 @@ button{font-family:inherit;cursor:pointer;border:none}
 @media (max-width:960px){
   .nav-links,.nav-social{display:none}
   .nav-burger{display:inline-flex}
+  .nav-cta{margin-left:auto}
+  .nav-inner{gap:16px}
+  /* Menú desplegable bajo la barra */
+  .nav.is-open .nav-links{
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    position:absolute;top:100%;left:0;right:0;
+    padding:8px 32px 16px;
+    background:var(--navy-deep);
+    border-bottom:1px solid var(--border);
+  }
+  .nav.is-open .nav-links a{padding:14px 0;font-size:12px;border-bottom:1px solid var(--border)}
+  .nav.is-open .nav-links a:last-child{border-bottom:none}
   .hero-bg{background-position:center 45%;background-size:cover}
   .info-grid{grid-template-columns:repeat(2,1fr)}
   .carta-grid{grid-template-columns:repeat(2,1fr)}
@@ -491,7 +504,11 @@ button{font-family:inherit;cursor:pointer;border:none}
 }
 @media (max-width:560px){
   .section{padding:64px 22px}
-  .nav-inner{padding:14px 22px}
+  .nav-inner{padding:14px 22px;gap:8px}
+  .nav-logo img{height:28px}
+  .nav-burger{width:36px;margin-right:-6px}
+  .nav-cta{padding:8px 12px;font-size:11px}
+  .nav.is-open .nav-links{padding:8px 22px 16px}
   .hero-content{padding:60px 22px}
   .hero-shield{flex-direction:column;text-align:center}
   .hero-shield .lockup{text-align:center}
@@ -514,9 +531,9 @@ button{font-family:inherit;cursor:pointer;border:none}
 <header class="nav" role="banner">
   <div class="nav-inner">
     <a href="#" class="nav-logo" aria-label="Royal Guard inicio">
-      <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar" style="height:44px;width:auto;">
+      <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar">
     </a>
-    <nav class="nav-links" aria-label="Principal">
+    <nav class="nav-links" id="nav-menu" aria-label="Principal">
       <a href="#">Variedades</a>
       <a href="#">Experiencias</a>
       <a href="#" class="active">Royal Guard Bar</a>
@@ -529,7 +546,10 @@ button{font-family:inherit;cursor:pointer;border:none}
       <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7c0-1 .5-2 2-2h2V1.5C16 1.5 14.5 1 13 1c-3 0-5 2-5 5v4H5v4h3v8z"/></svg></a>
       <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7c0-2-1-3-3-3H4C2 4 1 5 1 7v10c0 2 1 3 3 3h16c2 0 3-1 3-3zM10 16V8l6 4z"/></svg></a>
     </div>
-    <button class="nav-burger" aria-label="Abrir menú">≡</button>
+    <button class="nav-burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </div>
 </header>
 
@@ -542,8 +562,8 @@ button{font-family:inherit;cursor:pointer;border:none}
       <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar — Barrio Italia" style="height:90px;width:auto;">
     </div>
     <h1>
-      Tu merecido relajo
-      <span class="accent">en Barrio Italia</span>
+      <span style="display:block">Merecido relajo</span>
+      <span class="accent">Barrio Italia</span>
     </h1>
     <p class="subhead">
       Cervezas Royal Guard recién tiradas, cocina de barrio y la mejor terraza para terminar el día. Pet friendly, abierto todos los días.
@@ -553,7 +573,6 @@ button{font-family:inherit;cursor:pointer;border:none}
       <a href="#carta" class="btn btn-secondary">Ver la carta</a>
     </div>
   </div>
-  <div class="scroll-hint" aria-hidden="true">SCROLL</div>
 </section>
 
 <!-- =================== INFO STRIP =================== -->
@@ -809,5 +828,22 @@ button{font-family:inherit;cursor:pointer;border:none}
 </footer>
 
 
+<script>
+  // Menú burger (mobile)
+  (function(){
+    var nav = document.querySelector('.nav');
+    var btn = nav.querySelector('.nav-burger');
+    function setOpen(open){
+      nav.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    }
+    btn.addEventListener('click', function(){ setOpen(!nav.classList.contains('is-open')); });
+    nav.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setOpen(false); });
+  })();
+</script>
 </body>
 </html>
