@@ -170,6 +170,8 @@ button{font-family:inherit;cursor:pointer;border:none}
   border-bottom:1px solid var(--border);
 }
 .hero-shield svg{width:54px;height:62px}
+/* Ancho controlado y alto automático: mantiene la proporción del logo */
+.hero-shield img{width:min(460px,72vw);height:auto}
 .hero-shield .lockup{text-align:left}
 .hero-shield .lockup .royal{
   font-family:var(--font-display);font-weight:800;letter-spacing:0.16em;font-size:22px;line-height:1;
@@ -185,8 +187,9 @@ button{font-family:inherit;cursor:pointer;border:none}
   letter-spacing:0.04em;
   white-space:nowrap;
   text-transform:uppercase;
-  line-height:1.02;
+  line-height:1.15;
   margin-bottom:22px;
+  text-shadow:0 2px 16px rgba(10,26,51,0.6);
 }
 .hero h1 .accent{color:var(--mustard);display:block}
 .hero .subhead{
@@ -194,7 +197,8 @@ button{font-family:inherit;cursor:pointer;border:none}
   font-size:clamp(15px,1.4vw,18px);
   font-weight:400;
   letter-spacing:0.04em;
-  color:var(--muted);
+  color:rgba(255,255,255,0.92);
+  text-shadow:0 1px 10px rgba(10,26,51,0.9);
   margin-bottom:42px;
   max-width:600px;
   margin-left:auto;margin-right:auto;
@@ -498,7 +502,9 @@ button{font-family:inherit;cursor:pointer;border:none}
   .hero-bg{background-position:center 45%;background-size:cover}
   .info-grid{grid-template-columns:repeat(2,1fr)}
   .carta-grid{grid-template-columns:repeat(2,1fr)}
-  .split-grid{grid-template-columns:1fr;gap:56px}
+  .split-grid{grid-template-columns:minmax(0,1fr);gap:56px}
+  .split-grid > *, .evento-body{min-width:0}
+  .evento-body h4{overflow-wrap:break-word}
   .map-wrap{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
 }
@@ -511,10 +517,22 @@ button{font-family:inherit;cursor:pointer;border:none}
   .nav.is-open .nav-links{padding:8px 22px 16px}
   .hero-content{padding:60px 22px}
   .hero-shield{flex-direction:column;text-align:center}
+  .hero h1{line-height:1.35}
+  /* Overlay más oscuro en mobile: el letrero de la foto queda detrás del texto */
+  .hero-overlay{
+    background:
+      linear-gradient(180deg, rgba(10,26,51,0.55) 0%, rgba(10,26,51,0.75) 50%, rgba(10,26,51,0.9) 100%),
+      radial-gradient(ellipse at center, transparent 0%, rgba(10,26,51,0.5) 100%);
+  }
   .hero-shield .lockup{text-align:center}
   .info-grid{grid-template-columns:1fr;padding:28px 22px}
   .carta-grid{grid-template-columns:1fr}
   .split-grid{padding:64px 22px}
+  /* .split ya tiene padding en .split-grid: evita doble margen lateral */
+  .split.section{padding:0}
+  .evento-date{flex-basis:56px;padding-right:10px}
+  .evento-body h4{font-size:15px}
+  .evento-body .meta{letter-spacing:0.1em}
   .footer-inner{grid-template-columns:1fr}
   .newsletter-form{flex-direction:column;align-items:stretch}
   .newsletter-form .field{max-width:none}
@@ -559,7 +577,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-shield">
-      <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar — Barrio Italia" style="height:90px;width:auto;">
+      <img src="assets/logo/blanco%201.png" alt="Royal Guard Bar — Barrio Italia">
     </div>
     <h1>
       <span style="display:block">Merecido relajo</span>
